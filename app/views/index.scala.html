@@ -1,6 +1,6 @@
 @import java.net.URLEncoder
 @(q:String)
-@_baseSkeleton("crawlaer.aha00a.com") {
+@_baseSkeleton("crawler.aha00a.com") {
     <script type="text/javascript">
         $(function(){
             $.get(
@@ -41,6 +41,7 @@
     </script>
 } {
     <h1><a href="/">crawler.aha00a.com</a></h1>
+    Url to <code>title</code>, <code>description</code>, <code>image</code>.
     <h2>Samples</h2>
     <ul>
         @for(url <-
