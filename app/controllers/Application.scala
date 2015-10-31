@@ -2,6 +2,7 @@ package controllers
 
 import java.net.MalformedURLException
 
+import play.api.Logger
 import play.api.libs.json.{JsString, JsValue, Json}
 import play.api.mvc._
 
@@ -15,8 +16,9 @@ class Application extends Controller {
   }
 
 
-  def get(q: String) = Action {
+  def get(q: String) = Action { implicit request =>
     try {
+      Logger.info(request.remoteAddress)
       val crawler = logics.Crawler.fromUrl(q)
       Ok(Json.toJson(Map[String, JsValue](
         "title" -> JsString(crawler.title),
