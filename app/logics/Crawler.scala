@@ -7,9 +7,11 @@ class Crawler(document: Document ) {
 
 
 
-  val title = parseOg("title").orElse(parseTitle()).getOrElse(document.title())
-  val description = parseOg("description").orElse(parseDescription()).getOrElse(document.body().text())
-  val image = parseOg("image").orElse(parseImage()).getOrElse("")
+  val (title, description, image) = (
+    parseOg("title").orElse(parseTitle()).getOrElse(document.title()),
+    parseOg("description").orElse(parseDescription()).getOrElse(document.body().text()),
+    parseOg("image").orElse(parseImage()).getOrElse("")
+  )
 
   def parseTitle(): Option[String] = {
     if(document.baseUri().startsWith("http://people.search.naver.com")) {
