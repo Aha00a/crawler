@@ -6,7 +6,7 @@
                 '/get',
                 { q: $('.form [name=q]').val() },
                 function (data, textStatus, jqXHR) {
-                    $('.result').html('').append(ich.result(data));
+                    $('.result').html('').prepend(ich.result(data));
                 }
             ).error(function (jqXHR, textStatue, httpStatus) {
                 alert(jqXHR.responseJSON.message);
