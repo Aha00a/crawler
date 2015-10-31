@@ -6,29 +6,35 @@
                 '/get',
                 { q: $('.form [name=q]').val() },
                 function (data, textStatus, jqXHR) {
-                    $('.result').append($("<pre/>").text(JSON.stringify(data)));
-                    $('.result').append(ich.resultTable(data));
+                    var $result = $('.result');
+                    $result.append($('<pre class="json"/>').html(jsonPrettyPrint(JSON.stringify(data, null, 4))));
+                    if(data.image) {
+                        $result.append($("<img/>").attr('src', data.image));
+                    }
                 }
             ).error(function (jqXHR, textStatue, httpStatus) {
-                $('.result').append($("<pre/>").text(JSON.stringify(jqXHR.responseJSON)));
+                $('.result').append($('<pre class="json"/>').html(jsonPrettyPrint(JSON.stringify(jqXHR.responseJSON, null, 4))));
             });
         });
-    </script>
-    <script type="text/html" id="resultTable">
-        <table>
-            <tr>
-                <th>title</th>
-                <td>{{title}}</td>
-            </tr>
-            <tr>
-                <th>description</th>
-                <td>{{description}}</td>
-            </tr>
-            <tr>
-                <th>image</th>
-                <td><img src="{{image}}" /></td>
-            </tr>
-        </table>
+
+        function jsonPrettyPrint(json) {
+            json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+            return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) {
+                var cls = 'number';
+                if (/^"/.test(match)) {
+                    if (/:$/.test(match)) {
+                        cls = 'key';
+                    } else {
+                        cls = 'string';
+                    }
+                } else if (/true|false/.test(match)) {
+                    cls = 'boolean';
+                } else if (/null/.test(match)) {
+                    cls = 'null';
+                }
+                return '<span class="' + cls + '">' + match + '</span>';
+            });
+        }
     </script>
 } {
     <h1><a href="/">crawler.aha00a.com</a></h1>
