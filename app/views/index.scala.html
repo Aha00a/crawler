@@ -7,19 +7,19 @@
                 { q: $('.form [name=q]').val() },
                 function (data, textStatus, jqXHR) {
                     var $result = $('.result');
-                    $result.append($('<pre class="json"/>').html(jsonPrettyPrint(JSON.stringify(data, null, 4))));
+                    $result.append(jsonPrettyPrint(JSON.stringify(data, null, 4)));
                     if(data.image) {
                         $result.append($("<img/>").attr('src', data.image));
                     }
                 }
             ).error(function (jqXHR, textStatue, httpStatus) {
-                $('.result').append($('<pre class="json"/>').html(jsonPrettyPrint(JSON.stringify(jqXHR.responseJSON, null, 4))));
+                $('.result').append(jsonPrettyPrint(JSON.stringify(jqXHR.responseJSON, null, 4)));
             });
         });
 
         function jsonPrettyPrint(json) {
             json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-            return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) {
+            return $('<pre class="json"/>').html(json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) {
                 var cls = 'number';
                 if (/^"/.test(match)) {
                     if (/:$/.test(match)) {
@@ -33,7 +33,7 @@
                     cls = 'null';
                 }
                 return '<span class="' + cls + '">' + match + '</span>';
-            });
+            }));
         }
     </script>
 } {
