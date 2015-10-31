@@ -4,7 +4,7 @@
         $(function(){
             $.get(
                 '/get',
-                { q: $('.form [name=q]').val()},
+                { q: $('.form [name=q]').val() },
                 function (data, textStatus, jqXHR) {
                     $('.result').html('').append(ich.result(data));
                 }
