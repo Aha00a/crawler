@@ -1,2 +1,3 @@
 = crawler.aha00a.com =
+Url to title, description, and image.
 * [http://crawler.aha00a.com]
