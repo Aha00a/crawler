@@ -1,3 +1,4 @@
+@import java.net.URLEncoder
 @(q:String)
 @_baseSkeleton("crawlaer.aha00a.com") {
     <script type="text/javascript">
@@ -40,6 +41,18 @@
     </script>
 } {
     <h1><a href="/">crawler.aha00a.com</a></h1>
+    Samples
+    <ul>
+        @for(url <-
+          """http://wiki.aha00a.com
+            |https://twitter.com
+            |https://facebook.com
+            |https://medium.com
+            |http://people.search.naver.com/search.naver?where=nexearch&sm=tab_ppn&query=%EB%85%B8%EB%AC%B4%ED%98%84&os=99535&ie=utf8&key=PeopleService
+            |""".stripMargin.split("\n")) {
+            <li><a href="?q=@(URLEncoder.encode(url, "utf-8"))">@url</a></li>
+        }
+    </ul>
     <form class="form">
         <label>Url: <input type="text" name="q" value="@q" style="width: 80%"/></label>
         <input type="submit"/>
