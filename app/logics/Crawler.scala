@@ -20,7 +20,7 @@ class Crawler(document: Document) {
 }
 
 object Crawler {
-  def fromUrl(url: String) = new Crawler(Jsoup.connect(url).get())
+  def fromUrl(url: String) = new Crawler(Jsoup.connect(url).userAgent("crawler.aha00a.com").get())
 
   def fromHtml(html: String) = new Crawler(Jsoup.parse(html))
 }
