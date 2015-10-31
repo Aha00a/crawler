@@ -1,0 +1,45 @@
+@main("crawlaer") {
+    <script type="text/javascript">
+        $(function(){
+            $('.form').submit(function () {
+                $.get(
+                        '/get',
+                        { q: $('[name=url]').val()},
+                        function (data, textStatus, jqXHR) {
+                            $('.result').html('').append(ich.result(data));
+                        }
+                ).error(function (jqXHR, textStatue, httpStatus) {
+                    alert(jqXHR.responseJSON.message);
+                });
+                return false;
+            });
+
+            $('.form').submit();
+        });
+    </script>
+    <script type="text/html" id="result">
+        <table>
+            <tr>
+                <td>title</td>
+                <td>{{title}}</td>
+            </tr>
+            <tr>
+                <td>description</td>
+                <td>{{description}}</td>
+            </tr>
+            <tr>
+                <td>image</td>
+                <td><img src="{{image}}" /></td>
+            </tr>
+        </table>
+    </script>
+} {
+    <h1>Crawler</h1>
+    <form class="form">
+        <label>Url: <input type="text" id="url" name="url" value="http://daum.net"/></label>
+        <input type="submit"/>
+    </form>
+    <div class="result">
+
+    </div>
+}
