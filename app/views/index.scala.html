@@ -41,7 +41,7 @@
     </script>
 } {
     <h1><a href="/">crawler.aha00a.com</a></h1>
-    Samples
+    <h2>Samples</h2>
     <ul>
         @for(url <-
           """http://wiki.aha00a.com
@@ -53,10 +53,12 @@
             <li><a href="?q=@(URLEncoder.encode(url, "utf-8"))">@url</a></li>
         }
     </ul>
+    <h2>form</h2>
     <form class="form">
         <label>Url: <input type="text" name="q" value="@q" style="width: 80%"/></label>
         <input type="submit"/>
     </form>
+    <h2>Result</h2>
     <div class="result">
 
     </div>
