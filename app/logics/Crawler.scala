@@ -12,10 +12,13 @@ class Crawler(document: Document) {
     selectOg("image")       orElse selectAttr(".profile_wrap .thmb_wrap .thmb .thmb_img", "src")    getOrElse ""
   )
 
-  def toOption(text: String): Option[String] = if (text != null && text != "") Some(text) else None
-  def selectOg(key: String): Option[String] = toOption(document.select(s"meta[property=og:$key]").attr("content"))
-  def selectText(selector: String): Option[String] = toOption(document.select(selector).text())
-  def selectAttr(selector: String, attr: String): Option[String] = toOption(document.select(selector).attr(attr))
+  def selectOg(key: String): Option[String] = document.select(s"meta[property=og:$key]").attr("content").toOption
+  def selectText(selector: String): Option[String] = document.select(selector).text().toOption
+  def selectAttr(selector: String, attr: String): Option[String] = document.select(selector).attr(attr).toOption
+  
+  implicit class RichString(s:String) {
+    def toOption: Option[String] = if (s != null && s != "") Some(s) else None
+  }
 }
 
 object Crawler {
