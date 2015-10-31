@@ -25,7 +25,7 @@ class Application extends Controller {
       ))
     }
     catch {
-      case e: IllegalArgumentException => Forbidden(e.toString)
+      case e: Exception => Forbidden(Json.toJson(Map("message" -> e.toString)))
     }
   }
 }
