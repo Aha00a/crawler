@@ -6,14 +6,18 @@
                 '/get',
                 { q: $('.form [name=q]').val() },
                 function (data, textStatus, jqXHR) {
-                    $('.result').prepend(ich.result(data));
+                    $('.result').append($("<pre/>").text(JSON.stringify(data)));
+                    $('.result').append(ich.resultTable(data));
                 }
             ).error(function (jqXHR, textStatue, httpStatus) {
-                alert(jqXHR.responseJSON.message);
+                $('.result').append($("<pre/>").text(JSON.stringify(jqXHR.responseJSON)));
             });
         });
     </script>
-    <script type="text/html" id="result">
+    <script type="text/html" id="resultJson">
+        {{self}}
+    </script>
+    <script type="text/html" id="resultTable">
         <table>
             <tr>
                 <td>title</td>
