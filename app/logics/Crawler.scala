@@ -2,6 +2,7 @@ package logics
 
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
+import implicits.Implicits._
 
 class Crawler(document: Document) {
 
@@ -16,9 +17,6 @@ class Crawler(document: Document) {
   def selectText(selector: String): Option[String] = document.select(selector).text().toOption
   def selectAttr(selector: String, attr: String): Option[String] = document.select(selector).attr(attr).toOption
   
-  implicit class RichString(s:String) {
-    def toOption: Option[String] = if (s != null && s != "") Some(s) else None
-  }
 }
 
 object Crawler {

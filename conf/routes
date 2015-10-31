@@ -3,7 +3,7 @@
 # ~~~~
 
 # Home page
-GET     /                           controllers.Application.index
+GET     /                           controllers.Application.index(q:String?="")
 
 GET     /get                        controllers.Crawler.get(q:String)
 
