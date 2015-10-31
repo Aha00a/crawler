@@ -1,5 +1,7 @@
 package controllers
 
+import java.net.MalformedURLException
+
 import play.api.libs.json.{JsString, JsValue, Json}
 import play.api.mvc._
 
@@ -14,12 +16,16 @@ class Application extends Controller {
 
 
   def get(q: String) = Action {
-    val crawler = logics.Crawler.fromUrl(q)
-
-    Ok(Json.toJson(Map[String, JsValue](
-      "title" -> JsString(crawler.title),
-      "image" -> JsString(crawler.image),
-      "description" -> JsString(crawler.description))
-    ))
+    try {
+      val crawler = logics.Crawler.fromUrl(q)
+      Ok(Json.toJson(Map[String, JsValue](
+        "title" -> JsString(crawler.title),
+        "image" -> JsString(crawler.image),
+        "description" -> JsString(crawler.description))
+      ))
+    }
+    catch {
+      case e: IllegalArgumentException => Forbidden(e.toString)
+    }
   }
 }
