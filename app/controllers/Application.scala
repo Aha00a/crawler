@@ -19,7 +19,7 @@ class Application extends Controller {
 
   def get(q: String) = Action { implicit request =>
     try {
-      Logger.info(request.remoteAddressWithXRealIp)
+      Logger.info(s"${request.remoteAddressWithXRealIp}\t$q")
       val crawler = logics.Crawler.fromUrl(q)
       Ok(Json.toJson(Map[String, JsValue](
         "title" -> JsString(crawler.title),
