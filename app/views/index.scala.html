@@ -55,7 +55,7 @@
             <li><a href="?q=@(URLEncoder.encode(url, "utf-8"))">@url</a></li>
         }
     </ul>
-    <h2>form</h2>
+    <h2>Form</h2>
     <form class="form">
         <label>Url: <input type="text" name="q" value="@q" style="width: 80%"/></label>
         <input type="submit"/>
@@ -64,4 +64,6 @@
     <div class="result">
 
     </div>
+    <h2>Request using <code>curl</code></h2>
+    <pre>curl "http://crawler.aha00a.com/get?q=http://facebook.com"</pre>
 }
