@@ -4,7 +4,7 @@
 
 # Home page
 GET     /                           controllers.Application.index(q:String?="")
-GET     /get                        controllers.Application.get(q:String)
+GET     /get                        controllers.Application.get(q:String, callback:String?="")
 
 GET     /unittest                   controllers.Test.unit()
 

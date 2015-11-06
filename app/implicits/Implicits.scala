@@ -4,7 +4,8 @@ import play.api.mvc.Request
 
 object Implicits {
   implicit class RichString(s:String) {
-    def toOption: Option[String] = if (s != null && s != "") Some(s) else None
+    def isNullOrEmpty: Boolean = s == null || s.isEmpty
+    def toOption: Option[String] = if (s.isNullOrEmpty) None else Some(s)
   }
 
   implicit class RichRequest(request:Request[Any]) {
