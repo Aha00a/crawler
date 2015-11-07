@@ -7,7 +7,7 @@ import implicits.Implicits._
 class Crawler(document: Document) {
   val (title, description, image) = (
     selectOg("title")       orElse selectText(".profile_dsc .who")                                                                                            getOrElse document.title(),
-    selectOg("description") orElse selectText(".profile_dsc .dsc")                                                                                            getOrElse document.body().text(),
+    selectOg("description") orElse selectText(".profile_dsc .dsc")                                                                                            getOrElse document.body().toOption.map(_.text()).getOrElse(""),
     selectOg("image")       orElse selectAttr(".profile_wrap .thmb_wrap .thmb .thmb_img", "src")    orElse selectAttr("link[rel=shortcut icon]",  "abs:href") getOrElse ""
   )
 
