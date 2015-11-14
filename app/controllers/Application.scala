@@ -4,7 +4,7 @@ import java.net.{URLDecoder, MalformedURLException}
 
 import play.api.Logger
 import play.api.libs.Jsonp
-import play.api.libs.json.{JsString, JsValue, Json}
+import play.api.libs.json.{JsBoolean, JsString, JsValue, Json}
 import play.api.mvc._
 import implicits.Implicits._
 
@@ -23,6 +23,7 @@ class Application extends Controller {
       Logger.info(s"${request.remoteAddressWithXRealIp}\t$q")
       val crawler = logics.Crawler.fromUrl(q)
       val json = Json.toJson(Map[String, JsValue](
+        "success" -> JsBoolean(true),
         "title" -> JsString(crawler.title),
         "image" -> JsString(crawler.image),
         "description" -> JsString(crawler.description))
@@ -36,9 +37,9 @@ class Application extends Controller {
     catch {
       case e: Exception =>
         if(callback.isNullOrEmpty) {
-          Forbidden(Json.toJson(Map("message" -> e.getMessage)))
+          Ok(Json.toJson(Map[String, JsValue]("success" -> JsBoolean(false),"message" -> JsString(e.getMessage))))
         } else {
-          Forbidden(Jsonp(callback, Json.toJson(Map("message" -> e.getMessage))))
+          Ok(Jsonp(callback, Json.toJson(Map[String, JsValue]("success" -> JsBoolean(false),"message" -> JsString(e.getMessage)))))
         }
     }
   }
