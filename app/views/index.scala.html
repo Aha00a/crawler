@@ -7,15 +7,17 @@
                 '/get',
                 { q: $('.form [name=q]').val() },
                 function (data, textStatus, jqXHR) {
-                    var $result = $('.result');
-                    $result.append(jsonPrettyPrint(JSON.stringify(data, null, 4)));
-                    if(data.image) {
-                        $result.append($("<img/>").attr('src', data.image));
+                    if(data.success) {
+                        var $result = $('.result');
+                        $result.append(jsonPrettyPrint(JSON.stringify(data, null, 4)));
+                        if(data.image) {
+                            $result.append($("<img/>").attr('src', data.image));
+                        }
+                    } else {
+                        $('.result').append(jsonPrettyPrint(JSON.stringify(jqXHR.responseJSON, null, 4)));
                     }
                 }
-            ).error(function (jqXHR, textStatue, httpStatus) {
-                $('.result').append(jsonPrettyPrint(JSON.stringify(jqXHR.responseJSON, null, 4)));
-            });
+            );
         });
 
         function jsonPrettyPrint(json) {
