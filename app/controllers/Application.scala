@@ -6,6 +6,7 @@ import play.api.libs.Jsonp
 import play.api.libs.json.{JsBoolean, JsString, JsValue, Json}
 import play.api.mvc._
 
+//noinspection TypeAnnotation
 class Application extends Controller {
   def index(q: String) = Action {
     if (q.isEmpty) {
