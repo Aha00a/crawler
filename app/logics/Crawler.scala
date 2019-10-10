@@ -6,19 +6,19 @@ import implicits.Implicits._
 
 class Crawler(document: Document) {
   val title: String = selectOg("title")
-    .orElse(selectText(".profile_dsc .who"))
+    .orElse(selectText(".profile_dsc .who")) // http://people.search.naver.com
     .orElse(selectText("#printArea > div.view_con01_box > dl > dt")) // http://www.rokps.or.kr
     .orElse(document.title().toOption)
     .getOrElse("")
 
   val description: String = selectOg("description")
-    .orElse(selectText(".profile_dsc .dsc"))
+    .orElse(selectText(".profile_dsc .dsc")) // http://people.search.naver.com
     .orElse(selectText("#printArea.view_bbstable")) // http://www.rokps.or.kr
     .orElse(document.body().text().toOption)
     .getOrElse("")
 
   val image: String = selectOg("image")
-    .orElse(selectAttr(".profile_wrap .thmb_wrap .thmb .thmb_img", "src"))
+    .orElse(selectAttr(".profile_wrap .thmb_wrap .thmb .thmb_img", "src")) // http://people.search.naver.com
     .orElse(selectAttr("#printArea > div.view_con01_box > div > img", "abs:src")) // http://www.rokps.or.kr
     .orElse(selectAttr("link[rel=shortcut icon]",  "abs:href"))
     .getOrElse("")
