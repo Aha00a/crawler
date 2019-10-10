@@ -5,11 +5,20 @@ import org.jsoup.nodes.Document
 import implicits.Implicits._
 
 class Crawler(document: Document) {
-  val (title, description, image) = (
-    selectOg("title")       orElse selectText(".profile_dsc .who")                                                                                            getOrElse document.title(),
-    selectOg("description") orElse selectText(".profile_dsc .dsc")                                                                                            getOrElse document.body().toOption.map(_.text()).getOrElse(""),
-    selectOg("image")       orElse selectAttr(".profile_wrap .thmb_wrap .thmb .thmb_img", "src")    orElse selectAttr("link[rel=shortcut icon]",  "abs:href") getOrElse ""
-  )
+  val title: String = selectOg("title")
+    .orElse(selectText(".profile_dsc .who"))
+    .orElse(document.title().toOption)
+    .getOrElse("")
+
+  val description: String = selectOg("description")
+    .orElse(selectText(".profile_dsc .dsc"))
+    .orElse(document.body().text().toOption)
+    .getOrElse("")
+
+  val image: String = selectOg("image")
+    .orElse(selectAttr(".profile_wrap .thmb_wrap .thmb .thmb_img", "src"))
+    .orElse(selectAttr("link[rel=shortcut icon]",  "abs:href"))
+    .getOrElse("")
 
   def selectOg(key: String): Option[String] = document.select(s"meta[property=og:$key]").attr("content").toOption
   def selectText(selector: String): Option[String] = document.select(selector).text().toOption
