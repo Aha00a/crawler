@@ -1,12 +1,10 @@
 package controllers
 
-import java.net.{URLDecoder, MalformedURLException}
-
+import implicits.Implicits._
 import play.api.Logger
 import play.api.libs.Jsonp
 import play.api.libs.json.{JsBoolean, JsString, JsValue, Json}
 import play.api.mvc._
-import implicits.Implicits._
 
 class Application extends Controller {
   def index(q: String) = Action {
@@ -37,9 +35,9 @@ class Application extends Controller {
     catch {
       case e: Exception =>
         if(callback.isNullOrEmpty) {
-          Ok(Json.toJson(Map[String, JsValue]("success" -> JsBoolean(false),"message" -> JsString(e.getMessage))))
+          Forbidden(Json.toJson(Map[String, JsValue]("success" -> JsBoolean(false),"message" -> JsString(e.getMessage))))
         } else {
-          Ok(Jsonp(callback, Json.toJson(Map[String, JsValue]("success" -> JsBoolean(false),"message" -> JsString(e.getMessage)))))
+          Forbidden(Jsonp(callback, Json.toJson(Map[String, JsValue]("success" -> JsBoolean(false),"message" -> JsString(e.getMessage)))))
         }
     }
   }
