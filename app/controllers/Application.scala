@@ -25,8 +25,8 @@ class Application extends Controller {
         "success" -> JsBoolean(true),
         "title" -> JsString(crawler.title),
         "image" -> JsString(crawler.image),
-        "description" -> JsString(crawler.description))
-      )
+        "description" -> JsString(crawler.description)
+      ))
       Ok(if(callback.isNullOrEmpty) {
         json
       } else {
@@ -35,7 +35,9 @@ class Application extends Controller {
     }
     catch {
       case e: Exception =>
-        val json = Json.toJson(Map[String, JsValue]("success" -> JsBoolean(false), "message" -> JsString(e.getMessage)))
+        val json = Json.toJson(Map[String, JsValue](
+          "message" -> JsString(e.getMessage)
+        ))
         Forbidden(if(callback.isNullOrEmpty) {
           json
         } else {
