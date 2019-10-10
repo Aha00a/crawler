@@ -27,19 +27,20 @@ class Application extends Controller {
         "image" -> JsString(crawler.image),
         "description" -> JsString(crawler.description))
       )
-      if(callback.isNullOrEmpty) {
-        Ok(json)
+      Ok(if(callback.isNullOrEmpty) {
+        json
       } else {
-        Ok(Jsonp(callback, json))
-      }
+        Jsonp(callback, json)
+      })
     }
     catch {
       case e: Exception =>
-        if(callback.isNullOrEmpty) {
-          Forbidden(Json.toJson(Map[String, JsValue]("success" -> JsBoolean(false),"message" -> JsString(e.getMessage))))
+        val json = Json.toJson(Map[String, JsValue]("success" -> JsBoolean(false), "message" -> JsString(e.getMessage)))
+        Forbidden(if(callback.isNullOrEmpty) {
+          json
         } else {
-          Forbidden(Jsonp(callback, Json.toJson(Map[String, JsValue]("success" -> JsBoolean(false),"message" -> JsString(e.getMessage)))))
-        }
+          Jsonp(callback, json)
+        })
     }
   }
 }
