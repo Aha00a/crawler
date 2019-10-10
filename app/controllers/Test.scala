@@ -81,8 +81,8 @@ class Test @Inject()(implicit cacheApi: CacheApi, system: ActorSystem) extends C
     {
       val crawler = Crawler.fromUrl("http://people.search.naver.com/search.naver?where=nexearch&sm=tab_ppn&query=%EB%85%B8%EB%AC%B4%ED%98%84&os=99535&ie=utf8&key=PeopleService")
       assertEquals(crawler.title, "노무현 전 대통령")
-      assertEquals(crawler.description, "출생-사망 1946년 9월 1일, 경상남도 김해 - 2009년 5월 23일 가족 배우자 권양숙, 아들 노건호, 딸 노정연, 형 노건평 관련정보 역대 대한민국 대통령")
-      assertEquals(crawler.image, "http://sstatic.naver.net/people/30/200906061719353321.jpg")
+      assertEquals(crawler.description, "출생-사망 1946년 9월 1일, 경상남도 김해 - 2009년 5월 23일 가족 배우자 권양숙 , 아들 노건호, 딸 노정연, 형 노건평 관련정보 역대 대한민국 대통령 사이트 공식홈페이지, 블로그, 트위터, 페이스북, 노무현사료관")
+      assertEquals(crawler.image, "https://search.pstatic.net/common?type=a&size=120x150&quality=95&direct=true&src=http%3A%2F%2Fsstatic.naver.net%2Fpeople%2F30%2F201607061043114301.jpg")
     }
 
 
